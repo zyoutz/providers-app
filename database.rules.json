@@ -1,0 +1,43 @@
+{
+  /* Visit https://firebase.google.com/docs/database/security to learn more about security rules. */
+  "rules": {
+    ".read": "auth.token.admin === true",
+    ".write": "auth.token.admin === true",
+    // Healthcare provider profile information.
+    "providers": {
+      ".indexOn": ["location/city", "location/state", "location/zip", "location/name"],
+      ".read": true,
+      "$providerId": {
+        "name": {
+          ".validate": "newData.isString() && newData.val().length < 1000"
+        },
+        "location": {
+          "address": {
+            ".validate": "newData.isString() && newData.val().length < 1000"
+          },
+          "city": {
+            ".validate": "newData.isString() && newData.val().length < 1000"
+          },
+          "state": {
+            ".validate": "newData.isString() && newData.val().length == 2"
+          },
+          "zip": {
+            ".validate": "newData.isString() && newData.val().length == 5"
+          },
+          "coordinates": {
+            "longitude": {
+              ".validate": "newData.isString() && newData.val().length < 20"
+            },
+            "latitude": {
+              ".validate": "newData.isString() && newData.val().length < 20"
+            }
+          }
+        }
+      }
+    },
+    // Disallow all other attributes.
+    "$other": {
+      ".validate": false
+    }
+  }
+}
