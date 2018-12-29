@@ -25,3 +25,13 @@ npm test
 ```
 
 For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+
+## Firebase
+This is a firebase app leveraging Vuefire.  Below commands can be run:
+```
+npm run build  ## build latest dist to either be deployed or run locally
+
+firebase serve  ## Run local dev environment of static content in dist/ directory
+
+firebase deploy  ## Deploy hosting, function, etc components to Firebase
+```
