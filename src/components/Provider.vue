@@ -8,14 +8,28 @@
         Description of facility will go here.
       </template>
       <hr class="my-4">
+      <Information :providerId=this.$route.params.id />
+      <hr class="my-4">
+      <Steps />
+      <hr class="my-4">
+      <Rating />
+      <hr class="my-4">
+      <Survey />
+      <hr class="my-4">
+      <Staffing />
+      <hr class="my-4">
+      <Quality />
+      <hr class="my-4">
       <p>
-        Address:<br>
-        {{ provider.location.address }}<br>
-        {{provider.location.city}}, {{ provider.location.state }} {{ provider.location.zip}}
+        Information on this form is not an endorsement or advertisement for any nursing home and should be considered
+        carefully and validated for accuracy when considering nursing home placement. Use it with other information
+        you gather about nursing home facilities. Talk to your doctor or other health care provider about the
+        information contained here.
       </p>
       <p>
-        Coordinates:<br>
-        {{ provider.location.coordinates.longitude }}, {{ provider.location.coordinates.latitude }}
+        <small>
+          Compiled from publicly reported data and other data sources. Brought to you by Wouldn't you like to know.
+        </small>
       </p>
     </b-jumbotron>
   </div>
@@ -23,9 +37,23 @@
 
 <script>
   import { db } from '../firebase'
+  import Information from './sub/Information'
+  import Steps from './sub/Steps'
+  import Rating from './sub/Rating'
+  import Survey from './sub/Survey'
+  import Staffing from './sub/Staffing'
+  import Quality from './sub/Quality'
 
   export default {
     name: 'provider',
+    components: {
+      Information,
+      Steps,
+      Rating,
+      Survey,
+      Staffing,
+      Quality
+    },
     data () {
       return {
         provider: null
