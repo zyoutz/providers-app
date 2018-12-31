@@ -1,6 +1,7 @@
 <template>
-  <div class="mt-4 col-md-8 offset-md-2 col-sm-12">
-    <b-jumbotron >
+  <div id="printContent" class="mt-4 col-md-8 offset-md-2 col-sm-12 col-print-12">
+    <b-button id="printPageButton" @click="print()">Print Provider Details</b-button>
+    <b-jumbotron class="mt-2">
       <template slot="header">
         {{ provider.name }}
       </template>
@@ -74,6 +75,9 @@
           }).catch((err) => {
             console.error(err)
           })
+      },
+      print () {
+        window.print()
       }
     }
   }
@@ -97,5 +101,23 @@
 
   a {
     color: #35495E;
+  }
+
+  @media print {
+    .col-print-12 { width: 100% }
+    #printPageButton {
+      display: none;
+    }
+    body * {
+      visibility: hidden;
+    }
+    #printContent * {
+      visibility: visible;
+    }
+    #printContent {
+      position: absolute;
+      left: 0;
+      top: 0;
+    }
   }
 </style>
