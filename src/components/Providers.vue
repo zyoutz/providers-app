@@ -77,7 +77,7 @@
     methods: {
       onSubmit (evt) {
         evt.preventDefault()
-        alert(JSON.stringify(this.form))
+        this.$bindAsArray('providers', db.ref('providers').orderByChild('name').startAt(this.form.name).endAt(this.form.name + '\uf8ff'))
       },
       onReset (evt) {
         evt.preventDefault()
