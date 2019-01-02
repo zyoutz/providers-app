@@ -35,3 +35,8 @@ firebase serve  ## Run local dev environment of static content in dist/ director
 
 firebase deploy  ## Deploy hosting, function, etc components to Firebase
 ```
+
+Deploy only one component:
+```
+firebase deploy --only [hosting,functions]
+```

@@ -15,7 +15,7 @@ try {
 }
 
 const db = admin.database();
-const ref = db.ref('providers');
+const ref = db.ref('providerSurveys');
 
 const PAGE_SIZE = 50000
 
@@ -25,40 +25,19 @@ async function saveProviders(providers) {
       try {
         if (providers[i]['provider_state'] !== 'MI') { continue; }
 
-        let location = providers[i]['location'];
-        let address_json = JSON.parse(location['human_address'])
-
         console.debug('Processing: ' + providers[i]['provider_name'] + ' (' + providers[i]['provider_state'] + ')');
 
         let provider = {
-          name: providers[i]['provider_name'],
-          name_upper: providers[i]['provider_name'].toUpperCase(),
-          location: {
-            address: address_json['address'],
-            city: address_json['city'],
-            state: address_json['state'],
-            zip: address_json['zip'],
-            coordinates: {
-              longitude: 'unknown',
-              latitude: 'unknown',
-            },
-          },
-          ratings: {}
+          fire_saftey_survey_date: providers[i]['fire_saftey_survey_date'],
+          health_survey_date: providers[i]['health_survey_date']
         };
 
         // Get rating details if available
-        const rating_metrics = ['rn_staffing_rating', 'health_inspection_rating', 'staffing_rating', 'qm_rating', 'overall_rating'];
-        for (let r = 0; r < rating_metrics.length; r++) {
-          if (rating_metrics[r] in providers[i]) {
-            provider['ratings'][rating_metrics[r]] = providers[i][rating_metrics[r]];
-          }
-        }
-
-        // Get coordinate details if available
-        const coordinate_types = ['longitude', 'latitude'];
-        for (let c = 0; c < coordinate_types.length; c++) {
-          if (coordinate_types[c] in location) {
-            provider['location']['coordinates'][coordinate_types[c]] = location[coordinate_types[c]];
+        const survey_titles = ['count_of_administration_deficiencies', 'count_of_automatic_sprinkler_systems_deficiencies',
+          'count_of_construction_deficiencies', 'count_of_corridor_walls_and_doors_deficiencies', 'count_of_pharmacy_service_deficiencies'];
+        for (let s = 0; s < survey_titles.length; s++) {
+          if (survey_titles[s] in providers[i]) {
+            provider[survey_titles[s]] = providers[i][survey_titles[s]];
           }
         }
 
@@ -102,8 +81,8 @@ async function retrieveProviders(url) {
   }
 }
 
-exports.processProviders = functions.runWith({memory: '2GB', timeoutSeconds: 540}).https.onRequest(async (req, res) => {
-  const url = 'https://data.medicare.gov/resource/ax9d-vq6k.json'
+exports.processProviderSurveys = functions.runWith({memory: '2GB', timeoutSeconds: 540}).https.onRequest(async (req, res) => {
+  const url = 'https://data.medicare.gov/resource/gx3u-faec.json'
   let numProviders = await retrieveProviders(url);
 
   console.info('Total number of providers processed: ' + numProviders)

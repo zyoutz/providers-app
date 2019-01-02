@@ -77,7 +77,8 @@
     methods: {
       onSubmit (evt) {
         evt.preventDefault()
-        this.$bindAsArray('providers', db.ref('providers').orderByChild('name').startAt(this.form.name).endAt(this.form.name + '\uf8ff'))
+        this.$bindAsArray('providers', db.ref('providers').orderByChild('name_upper')
+          .startAt(this.form.name.toUpperCase()).endAt(this.form.name.toUpperCase() + '\uf8ff'))
       },
       onReset (evt) {
         evt.preventDefault()

@@ -13,7 +13,7 @@
       <hr class="my-4">
       <Steps />
       <hr class="my-4">
-      <Rating />
+      <Rating :providerId=this.$route.params.id />
       <hr class="my-4">
       <Survey />
       <hr class="my-4">

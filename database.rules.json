@@ -11,6 +11,9 @@
         "name": {
           ".validate": "newData.isString() && newData.val().length < 1000"
         },
+        "name_lower": {
+          ".validate": "newData.isString() && newData.val().length < 1000"
+        },
         "location": {
           "address": {
             ".validate": "newData.isString() && newData.val().length < 1000"
@@ -32,6 +35,50 @@
               ".validate": "newData.isString() && newData.val().length < 20"
             }
           }
+        },
+        "ratings": {
+          "rn_staffing_rating": {
+            ".validate": "newData.isNumber() && newData.val() % 1 === 0.0"
+          },
+          "health_inspection_rating": {
+            ".validate": "newData.isNumber() && newData.val() % 1 === 0.0"
+          },
+          "staffing_rating": {
+            ".validate": "newData.isNumber() && newData.val() % 1 === 0.0"
+          },
+          "qm_rating": {
+            ".validate": "newData.isNumber() && newData.val() % 1 === 0.0"
+          },
+          "overall_rating": {
+            ".validate": "newData.isNumber() && newData.val() % 1 === 0.0"
+          }
+        }
+      }
+    },
+    // Healthcare provider survey information.
+    "providerSurveys": {
+      ".read": true,
+      "$providerId": {
+        "fire_saftey_survey_date": {
+          ".validate": "newData.isString() && newData.val().length < 100"
+        },
+        "health_survey_date": {
+          ".validate": "newData.isString() && newData.val().length < 100"
+        },
+        "count_of_administration_deficiencies": {
+          ".validate": "newData.isNumber() && newData.val() % 1 === 0.0"
+        },
+        "count_of_automatic_sprinkler_systems_deficiencies": {
+          ".validate": "newData.isNumber() && newData.val() % 1 === 0.0"
+        },
+        "count_of_construction_deficiencies": {
+          ".validate": "newData.isNumber() && newData.val() % 1 === 0.0"
+        },
+        "count_of_corridor_walls_and_doors_deficiencies": {
+          ".validate": "newData.isNumber() && newData.val() % 1 === 0.0"
+        },
+        "count_of_pharmacy_service_deficiencies": {
+          ".validate": "newData.isNumber() && newData.val() % 1 === 0.0"
         }
       }
     },
